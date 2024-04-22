@@ -1,4 +1,3 @@
-from random import randint as rand
 from requests import get
 from pyautogui import screenshot, size
 from io import BytesIO
